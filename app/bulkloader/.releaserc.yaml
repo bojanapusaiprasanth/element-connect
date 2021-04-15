@@ -36,8 +36,6 @@ plugins:
   - - "@semantic-release/npm"
     - npmPublish: false
       tarballDir: "dist"
-  - - "@semantic-release/exec"
-    - prepareCmd: "make release.artifact && make release.publish"
   - - "@semantic-release/github"
     - successComment: false
   - - "@semantic-release/git"
