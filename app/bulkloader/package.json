@@ -1,41 +1,30 @@
 {
-  "name": "bulkloader",
-  "version": "0.0.0",
-  "description": "My Bulkloader application",
-  "main": "index.js",
+  "name": "Bulkloader",
+  "private": true,
   "scripts": {
-    "docker.run": "docker run -it --rm -p 8080:8080 cloudelements/${npm_package_name}:${npm_package_version}",
-    "docker.artifact": "docker build -t cloudelements/${npm_package_name}:${npm_package_version} . && docker tag cloudelements/${npm_package_name}:${npm_package_version} cloudelements/${npm_package_name}:latest",
-    "docker.login": "{ test -n \"$DOCKER_USERNAME\" && test -n \"$DOCKER_PASSWORD\" && docker login --username \"$DOCKER_USERNAME\" --password \"$DOCKER_PASSWORD\" ;} || true",
-    "docker.publish": "docker push cloudelements/${npm_package_name}:${npm_package_version} && docker push cloudelements/${npm_package_name}:latest",
-    "serverless.artifact": "rm -rf ./dist && mkdir -p ./dist && zip -r ./dist/${npm_package_name}-${npm_package_version}.zip . -D ./dist",
-    "serverless.publish": "aws s3 cp ./dist/${npm_package_name}-${npm_package_version}.zip s3://serverless.cloudelements/${npm_package_name}/${npm_package_name}-${npm_package_version}.zip",
-    "release.artifact": "npm run docker.artifact && npm run serverless.artifact",
-    "release.publish": "npm run docker.login && npm run docker.publish && npm run serverless.publish",
-    "release.security": "mkdir -p /tmp/trivy/cache && npm run trivy.cache && npm run trivy.scan_low && npm run trivy.scan_high",
-    "trivy.cache": "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/trivy/cache/:/root/.cache/ aquasec/trivy --clear-cache",
-    "trivy.scan_low": "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/trivy/cache/:/root/.cache/ aquasec/trivy --no-progress --exit-code 0 --severity LOW,MEDIUM --ignore-unfixed cloudelements/${npm_package_name}:${npm_package_version}",
-    "trivy.scan_high": "docker run --rm -v /var/run/docker.sock:/var/run/docker.sock -v /tmp/trivy/cache/:/root/.cache/ aquasec/trivy --no-progress --exit-code 1 --severity HIGH,CRITICAL --ignore-unfixed cloudelements/${npm_package_name}:${npm_package_version}",
-    "test.security": "snyk test --all-projects --dev"
-  },
-  "author": "",
-  "license": "UNLICENSED",
-  "dependencies": {
-    "express": "4.17.1"
+    "release": "semantic-release"
   },
   "devDependencies": {
-    "snyk": "^1.297.1"
+    "@semantic-release/changelog": "^5.0.0",
+    "@semantic-release/commit-analyzer": "^8.0.1",
+    "@semantic-release/exec": "^5.0.0",
+    "@semantic-release/git": "^9.0.0",
+    "@semantic-release/github": "^7.0.3",
+    "@semantic-release/npm": "^7.0.3",
+    "@semantic-release/release-notes-generator": "^9.0.0",
+    "conventional-changelog-conventionalcommits": "^4.2.3",
+    "semantic-release": "^17.0.4",
+    "semantic-release-docker": "^2.2.0",
+    "serve": "^11.3.0",
+    "serverless-localstack": "^0.4.28",
+    "snyk": "^1.294.0",
+    "yarn": "^1.22.0"
+  },
+  "dependencies": {
+    "serverless": "^2.12.0"
   },
   "peerDependencies": {},
-  "release": {
-		"plugins": [
-			"@semantic-release/commit-analyzer",
-			"@semantic-release/release-notes-generator",
-			"@semantic-release/npm",
-                        "@semantic-release/github",
-			"@semantic-release/git",
-			"@semantic-release/changelog"
-		],
-		"noCi": true
-	}
+  "version": "0.0.0",
+  "optionalDependencies": {}
 }
+
