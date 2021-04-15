@@ -17,8 +17,6 @@
     "yarn": "^1.22.0"
   },
   "workspaces": [
-    "deploy",
-    "env/*",
     "bulkloader"
   ]
 }

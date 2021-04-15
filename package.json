@@ -17,8 +17,6 @@
     "yarn": "^1.22.0"
   },
   "workspaces": [
-    "app/bulkloader",
-    "app/deploy",
-    "app/env/*"
+    "app/bulkloader"
   ]
 }
