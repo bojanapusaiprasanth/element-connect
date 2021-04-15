@@ -1,0 +1,13 @@
+service: mynodeapp
+provider:
+  name: aws
+  runtime: nodejs12.x
+  stage: ${opt:environment}
+  region: ${env:AWS_DEFAULT_REGION}
+package:
+  artifact: https://s3.amazonaws.com/serverless.cloudelements/mynodeapp/mynodeapp-${opt:appversion}.zip
+functions:
+  echo:
+    handler: src/controller/lambda.echo
+    environment:
+      MY_ENV_VAR: ${file(${opt:configpath, "./"}/serverless.values.yaml):myEnvVar}

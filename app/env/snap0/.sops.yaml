@@ -1,0 +1,3 @@
+creation_rules:
+  - path_regex: .*
+    kms: arn:aws:kms:us-west-2:627271302497:key/f4517465-560c-4cb5-a7c7-0a2abeb0badc

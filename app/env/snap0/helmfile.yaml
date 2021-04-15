@@ -1,0 +1,20 @@
+environments:
+  default:
+    missingFileHandler: Warn
+
+repositories:
+  - name: stable
+    url: https://kubernetes-charts.storage.googleapis.com
+
+helmDefaults:
+  wait: true
+  timeout: 600
+
+releases:
+  - name: mynodeapp
+    namespace: cloudelements
+    chart: {{ env "CHART_DIR" | default "../../deploy/k8s/helm" }}/mychart
+    secrets:
+      - {{ env "CONFIG_DIR" | default "." }}/helm.myNodeApp.secrets.yaml
+    values:
+      - {{ env "CONFIG_DIR" | default "." }}/helm.myNodeApp.values.yaml
